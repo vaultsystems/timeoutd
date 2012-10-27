@@ -6,6 +6,6 @@ timeoutd:	timeoutd.c Makefile
 	
 
 install:
-	install -o root -g system -m 2111 timeoutd /usr/etc/timeoutd
+	install -o root -g root -m 2111 timeoutd /usr/bin/timeoutd
 	install -o man -g info -m 444 timeoutd.8 /usr/man/man8
 	install -o man -g info -m 444 timeouts.5 /usr/man/man5

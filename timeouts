@@ -11,9 +11,8 @@
 # cas gets unlimited use
 #Al:*:cas:*:0:0:0:0
 #
-# fred is allowed 20 minutes idle, 240 mins per session, and 480 mins per day
-# on ttyS3
-#Al:ttyS3:fred:*:20:240:480:10
+# mononen is allowed 20 minutes idle, 240 mins per session, and 480 mins per day
+Al:*:mononen:*:20:60:480:10
 #
 # everyone else is allowed only 120min/session, 240/day
 #Al:ttyS3:*:*:20:120:240:5
