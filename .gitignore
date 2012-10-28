@@ -1,0 +1,4 @@
+timeoutd
+*.o
+TAGS
+.bug
