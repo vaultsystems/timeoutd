@@ -425,7 +425,7 @@ void read_wtmp(time_t since)
     while (fread(&ut, sizeof(struct utmp), 1, fp) == 1)
     {
       if(ut.ut_tv.tv_sec < since)
-        break;
+        continue;
 
 #ifndef SUNOS
       if (ut.ut_type == USER_PROCESS ||
