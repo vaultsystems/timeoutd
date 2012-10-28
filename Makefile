@@ -1,4 +1,4 @@
-CFLAGS=-fomit-frame-pointer -O2 -s -g -Wall
+CFLAGS=-ggdb -Wall -DDEBUG
 timeoutd:	timeoutd.c Makefile
 	$(CC) $(CFLAGS) -o timeoutd.o -c timeoutd.c -DTIMEOUTDX11
 	$(CC) $(CFLAGS) -o timeoutd -L/usr/X11R6/lib timeoutd.o -lXss -lXext

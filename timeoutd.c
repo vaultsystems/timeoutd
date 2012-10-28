@@ -302,10 +302,16 @@ char	*argv[];
     	strncpy(dev, argv[2], sizeof(dev) - 1);
     	dev[sizeof(dev) - 1] = '\0';
         time_now = time((time_t *)0);  /* get current time */
+	if(time_now == ((time_t) -1)) {
+	  openlog("timeoutd", OPENLOG_FLAGS, LOG_DAEMON);
+	  syslog(SYSLOG_DEBUG, "Cannot get time, fatal");
+	  closelog();
+	  return 1;
+	}
         now = *(localtime(&time_now));  /* Break it into bits */
         now_hhmm = now.tm_hour * 100 + now.tm_min;
         allow_reread = 0;
-        read_wtmp(); /* Read in today's wtmp entries */
+        read_wtmp(time_now / (24*3600)); /* Read in today's wtmp entries */
         switch(chk_timeout(argv[1], dev, "",  0, 0))
         {
             case DAYMAX:
@@ -387,17 +393,17 @@ char	*argv[];
         syslog(SYSLOG_DEBUG, "Finished checking utmp... sleeping for 1 minute.");
 	closelog();
 #endif
-        sleep(60);
+	int nap=60;
+        sleep(nap);
     }
 }
 
 /* Read in today's wtmp entries */
 
-void read_wtmp()
+void read_wtmp(time_t since)
 {
     FILE	*fp;
     struct utmp	ut;
-    struct tm	*tm;
 
 #ifdef DEBUG
     openlog("timeoutd", OPENLOG_FLAGS, LOG_DAEMON);
@@ -418,9 +424,7 @@ void read_wtmp()
 
     while (fread(&ut, sizeof(struct utmp), 1, fp) == 1)
     {
-      tm = localtime(&ut.ut_time);
-
-      if (tm->tm_year != now.tm_year || tm->tm_yday != now.tm_yday)
+      if(ut.ut_tv.tv_sec < since)
         break;
 
 #ifndef SUNOS
@@ -1231,9 +1235,8 @@ char *host;
 
 #ifdef DEBUG
     openlog("timeoutd", OPENLOG_FLAGS, LOG_DAEMON);
-    syslog(LOG_NOTICE, "Would normally kill pid %d user %s on %s",pid,user,dev);
+    syslog(LOG_NOTICE, "Killing pid %d user %s on %s",pid,user,dev);
     closelog();
-    return;
 #endif
 
     if (fork())             /* the parent process */
