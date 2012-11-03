@@ -2,3 +2,4 @@ timeoutd
 *.o
 TAGS
 .bug
+.bzr
