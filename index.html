@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="viewport" content="width=640" />
+
+    <link rel="stylesheet" href="stylesheets/core.css" media="screen"/>
+    <link rel="stylesheet" href="stylesheets/mobile.css" media="handheld, only screen and (max-device-width:640px)"/>
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css"/>
+
+    <script type="text/javascript" src="javascripts/modernizr.js"></script>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+    <script type="text/javascript" src="javascripts/headsmart.min.js"></script>
+    <script type="text/javascript">
+      $(document).ready(function () {
+        $('#main_content').headsmart()
+      })
+    </script>
+    <title>Timeoutd by risto-mononen</title>
+  </head>
+
+  <body>
+    <a id="forkme_banner" href="https://github.com/risto-mononen/timeoutd">View on GitHub</a>
+    <div class="shell">
+
+      <header>
+        <span class="ribbon-outer">
+          <span class="ribbon-inner">
+            <h1>Timeoutd</h1>
+            <h2>Ubuntu timeoutd (bug fixes)</h2>
+          </span>
+          <span class="left-tail"></span>
+          <span class="right-tail"></span>
+        </span>
+      </header>
+
+      <section id="downloads">
+        <span class="inner">
+          <a href="https://github.com/risto-mononen/timeoutd/zipball/master" class="zip"><em>download</em> .ZIP</a><a href="https://github.com/risto-mononen/timeoutd/tarball/master" class="tgz"><em>download</em> .TGZ</a>
+        </span>
+      </section>
+
+
+      <span class="banner-fix"></span>
+
+
+      <section id="main_content">
+        <p>TIMEOUTD 1.5 by Shane Alderton</p>
+
+<p>Timeoutd is a programme which allows you to control the following
+characteristics on a user by user and/or group by group basis for
+each tty on your system:</p>
+
+<ul>
+<li>maximum idle time</li>
+<li>maximum time per session</li>
+<li>maximum time per day</li>
+<li>times when people can/can't login on specific ttys</li>
+</ul><p>To build timeoutd, you should make any changes to the makefile for
+your preferred compilation options, then simply:</p>
+
+<p>make</p>
+
+<p>The next step is to install a timeouts file in /etc specifying
+the parameters for each line/user/group combination.  You can use
+the sample file provided in the distribution as a starting point
+after reading the timeoutd.8 and timeouts.5 man pages.</p>
+
+<p>Once you have installed the timeouts file in /etc, you can type:</p>
+
+<p>make install</p>
+
+<p>to install the timeoutd binaries and man pages.</p>
+
+<p>Then it is just a matter of running /usr/bin/timeoutd.  You may want
+to add a line to your /etc/rc or /etc/rc.local (or whatever) to run
+timeoutd at boot time.</p>
+
+<p>If you wish, you can also modify your login programme to have timeoutd
+run at login time to check whether each user is allowed to login or not.
+Otherwise, users who are not allowed to login will be logged off within
+1 minute of logging in.</p>
+
+<p>Another (albeit less certain) way of doing this is to put the following
+line in /etc/profile near the top of the file:</p>
+
+<p>/usr/bin/timeoutd <code>whoami</code> <code>basename \</code>tty`` || exit</p>
+
+<p>Please sends bugs, comments, suggestions to:
+<a href="mailto:shanea@bigpond.net.au">shanea@bigpond.net.au</a> (Shane Alderton)</p>
+      </section>
+
+      <footer>
+        <span class="ribbon-outer">
+          <span class="ribbon-inner">
+            <p>this project by <a href="https://github.com/risto-mononen">risto-mononen</a> can be found on <a href="https://github.com/risto-mononen/timeoutd">GitHub</a></p>
+          </span>
+          <span class="left-tail"></span>
+          <span class="right-tail"></span>
+        </span>
+        <p>Generated with <a href="http://pages.github.com">GitHub Pages</a> using Merlot</p>
+        <span class="octocat"></span>
+      </footer>
+
+    </div>
+
+    
+  </body>
+</html>
