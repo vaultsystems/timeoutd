@@ -13,3 +13,6 @@ install: timeoutd
 
 clean:
 	rm timeoutd *.o TAGS *~
+
+TAGS:
+	etags *.c
