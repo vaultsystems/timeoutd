@@ -44,6 +44,7 @@
 #include    <dirent.h>
 #include <errno.h>
 #include "debug.h"
+#include <limits.h>
 
 #ifdef TIMEOUTDX11
 #include <netdb.h>
@@ -270,6 +271,35 @@ strsep (stringp, delim)
 }
 #endif
 
+  
+/*
+ * Handle undocumented -z flag. Only one -z on command line; fix 
+ * argv so that rest of args are not impacted. The last src item must
+ * be NULL (like in argv).
+ *
+ * Return number of consumed argv entries (0 or 2).
+ */
+int set_debug_level (char **src)
+{
+  int ret = 0;
+  for (; *src; src++)
+    if (!strcmp (*src, "-z")) {
+      char **dst = src++;
+      debug_level = strtoul (*src, NULL, 0);
+      if (debug_level == ULONG_MAX || debug_level == 0)
+	if (errno) {
+	  perror ("strtoul()");
+	  break;
+	}
+      DUMP (debug_level);
+      for (++src; *dst; src++, dst++)
+	*dst = *src;
+      ret = (src - dst);
+      break;
+    }
+  return ret;
+}
+
 int
 main (argc, argv)
      int argc;
@@ -283,6 +313,10 @@ main (argc, argv)
   signal (SIGSEGV, segfault);
 
   openlog ("timeoutd", OPENLOG_FLAGS, LOG_DAEMON);
+
+#ifdef DEBUG
+  argc -= set_debug_level (argv);
+#endif  /* DEBUG */
 
   /* The only valid invocations are "timeoutd" or "timeoutd user tty" */
   if (argc != 1 && argc != 3)

@@ -1,5 +1,7 @@
 #ifdef DEBUG
 
+unsigned long int debug_level;
+
 #define TRACE(fn)	trace(fn, #fn, __FILE__, __LINE__)
 void trace(void *funptr, char *funname, char *filename, int line);
 #define DUMP(num)	dump(num, #num, __FILE__, __LINE__)

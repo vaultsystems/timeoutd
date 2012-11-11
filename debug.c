@@ -2,6 +2,8 @@
 
 #include <syslog.h>
 
+unsigned long int debug_level = 0;
+
 #define OPENLOG_FLAGS	LOG_CONS|LOG_PID
 #define SYSLOG_DEBUG	LOG_DEBUG
 
