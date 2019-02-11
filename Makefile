@@ -13,4 +13,4 @@ install: timeoutd
 	install -o man -g root -m 444 timeouts.5 /usr/share/man/man5
 
 clean:
-	rm timeoutd *.o TAGS *~
+	rm timeoutd *.o 

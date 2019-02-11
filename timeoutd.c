@@ -1826,7 +1826,7 @@ getcpid (ppid)
   FILE *proc_file;
   struct dirent *cont;
   char akt_pid[99];
-  char path[256];
+  char path[512];
 
   proc = opendir ("/proc/");
   if (proc == NULL)
