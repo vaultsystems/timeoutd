@@ -1,10 +1,11 @@
-timeoutd (1.5-10.1ubuntu16.04) UNRELEASED; urgency=low
+timeoutd (1.5-10.1ubuntu18.04) UNRELEASED; urgency=low
 
+  [ Yu-Jung Cheng ]
   * Fix compile error in Ubuntu with no X-window.
   * Fix compile warning
   * Update Makefile
 
- -- Yu-Jung Cheng <yu-jung.cheng@vaultcloud.com.au>  Mon, 11 Feb 2019 05:38:20 +0000
+ -- Yu-Jung Cheng <yu-jung.cheng@vaultcloud.com.au>  Thu, 14 Feb 2019 00:50:50 +0000
 
 timeoutd (1.5-10.1ubuntu1) lucid; urgency=low
 

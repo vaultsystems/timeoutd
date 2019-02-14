@@ -1,7 +1,7 @@
 CFLAGS=-g -Wall
 
 timeoutd:	timeoutd.o Makefile debug.o
-	$(CC) $(CFLAGS) -o timeoutd -L/usr/X11R6/lib timeoutd.o debug.o 
+	$(CC) $(CFLAGS) -o timeoutd timeoutd.o debug.o 
 
 timeoutd.o:	timeoutd.c Makefile debug.h
 	$(CC) $(CFLAGS) -o timeoutd.o -c timeoutd.c
