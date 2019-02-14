@@ -4,7 +4,7 @@ Priority: extra
 Maintainer: Ubuntu Developers <ubuntu-devel-discuss@lists.ubuntu.com>
 XSBC-Original-Maintainer: Dennis Stampfer <seppy@debian.org>
 Standards-Version: 3.6.2
-Build-Depends: debhelper (>= 4), libx11-dev, libxss-dev
+Build-Depends: debhelper (>= 4)
 
 Package: timeoutd
 Architecture: any

@@ -45,15 +45,15 @@
 #include <errno.h>
 #include "debug.h"
 
-#ifdef TIMEOUTDX11
 #include <netdb.h>
+#ifdef TIMEOUTDX11
 #include <X11/Xlib.h>
 #include <X11/extensions/scrnsaver.h>
+#endif
 
 #define TIMEOUTD_XSESSION_NONE 0
 #define TIMEOUTD_XSESSION_LOCAL 1
 #define TIMEOUTD_XSESSION_REMOTE 2
-#endif
 
 #define OPENLOG_FLAGS	LOG_CONS|LOG_PID
 #define SYSLOG_DEBUG	LOG_DEBUG
@@ -964,7 +964,7 @@ void ttywarn (char *tty, int time_remaining, char *user, char *host)
       int err = errno;
       openlog ("timeoutd", OPENLOG_FLAGS, LOG_DAEMON);
       syslog (LOG_ERR, "ttywarn(%s, %s): %s", user,
-	      devname, sys_errlist[err]);
+	      devname, strerror(err));
       closelog ();
     }
   else 
@@ -1181,7 +1181,7 @@ check_idle ()			/* Check for exceeded time limits & logoff exceeders */
   strncpy (dev, utmpp->ut_line, sizeof (dev) - 1);	/* get device name */
   dev[sizeof (dev) - 1] = '\0';
   sprintf (path, "/dev/%s", dev);
-  if (stat (path, pstat) && !chk_xsession (dev, host) == TIMEOUTD_XSESSION_LOCAL)	/* if can't get status for 
+  if (stat (path, pstat) && !(chk_xsession (dev, host) == TIMEOUTD_XSESSION_LOCAL))	/* if can't get status for 
 											   port && if it's not a local Xsession */
     {
       sprintf (errmsg, "Can't get status of user %s's terminal (%s)\n",
@@ -1359,7 +1359,7 @@ killit (pid, user, dev, host)
     {
       int err = errno;
       openlog ("timeoutd", OPENLOG_FLAGS, LOG_DAEMON);
-      syslog (LOG_ERR, "killit(%s, %s): %s", user, devname, sys_errlist[err]);
+      syslog (LOG_ERR, "killit(%s, %s): %s", user, devname, strerror(err));
       closelog ();
     }
 
@@ -1504,7 +1504,7 @@ getdisc (d, host)
     {
       int err = errno;
       openlog ("timeoutd", OPENLOG_FLAGS, LOG_DAEMON);
-      syslog (LOG_ERR, "getdisc(%s, %s): %s", d, host, sys_errlist[err]);
+      syslog (LOG_ERR, "getdisc(%s, %s): %s", d, host, strerror(err));
       closelog ();
       return N_TTY;
     }
@@ -1826,7 +1826,7 @@ getcpid (ppid)
   FILE *proc_file;
   struct dirent *cont;
   char akt_pid[99];
-  char path[256];
+  char path[512];
 
   proc = opendir ("/proc/");
   if (proc == NULL)
